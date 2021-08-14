@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+.btn_gerenciador{
+  text-align: left;
+  padding: 3em;
+}
+
+.form{
+  text-align: left;
+  background-color: white;
+  border-radius: 10px;
+  padding: 3em;
+  margin-left: 3em;
+  margin-right: 3em;
+  justify-content: space-between;
+  gap: 10px;
+}
