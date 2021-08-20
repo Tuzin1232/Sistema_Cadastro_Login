@@ -5,15 +5,25 @@ import FormControl from '@material-ui/core/FormControl';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Switch from '@material-ui/core/Switch';
 import { DataGrid } from '@material-ui/data-grid';
-import { rows, columns, getSistemas } from './props/sistemaRepos'
+import { rows, columns} from './props/sistemaRepos'
 import { useForm, Controller } from "react-hook-form"
 
 function App() {
-
+  
   const { control, handleSubmit } = useForm();
   const onSubmit = data => console.log(data);
-  getSistemas('http://localhost:3000/api/sistemas')
-
+  let sistemas;
+  async function getSistemas() {
+    let data = {
+        method: 'GET',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' }
+    }; 
+    sistemas = await fetch("http://localhost:3000/api/sistemas", data).json
+    console.log(sistemas)
+}
+  getSistemas()
+  
   return (
     <form className="App" onSubmit={handleSubmit(onSubmit)}>
       <div className="btn_gerenciador">

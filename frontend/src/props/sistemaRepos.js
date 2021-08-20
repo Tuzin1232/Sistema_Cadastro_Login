@@ -1,15 +1,3 @@
-export async function getSistemas(url) {
-
-    let data = {
-        method: 'GET',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' }
-    };
-    fetch(url, data).then(async (r) => {
-        console.log(await r.json())
-    })
-}
-
 export const columns = [
     {
         field: 'id',
@@ -62,3 +50,4 @@ export const columns = [
 ];
 
 export const rows = [];
+
