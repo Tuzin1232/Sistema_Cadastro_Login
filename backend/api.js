@@ -24,7 +24,7 @@ app.get("/api/sistemas",function(req, res){
 })
 
 app.post('/api/cadastro', function(req, res){
-    console.log(req.body)
+    console.log(req)
 })
 
 app.listen(3000)

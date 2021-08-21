@@ -1,29 +1,45 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, InputLabel, Select, MenuItem } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Switch from '@material-ui/core/Switch';
 import { DataGrid } from '@material-ui/data-grid';
-import { rows, columns} from './props/sistemaRepos'
+import { columns } from './props/sistemaRepos'
 import { useForm, Controller } from "react-hook-form"
 
 function App() {
+  const [valor, setValor] = useState("");
+  const [sistemas, setSistemas] = useState([])
+
+  const tabelaValor = {valor}
+  
+  const onSubmit = function(data) {
+    data["sistemas"] = sistemas
+    fetch('http://localhost:3000/api/cadastro', {
+    method: 'POST',
+    mode: 'cors',
+    body: data
+  });
+  } 
   
   const { control, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
-  let sistemas;
-  async function getSistemas() {
-    let data = {
-        method: 'GET',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' }
-    }; 
-    sistemas = await fetch("http://localhost:3000/api/sistemas", data).json
-    console.log(sistemas)
-}
-  getSistemas()
+  const handleChange = e => setValor(e.target.value);
   
+  console.log(sistemas)
+
+  function getValores() {
+    let infoSistema = {
+      id: sistemas.length +1,
+      ativo: document.getElementById("ativo").checked?"Sim":"Não",
+      sistema: tabelaValor.valor,
+      data_inicio: document.getElementById("data_inicio").value,
+      data_fim: document.getElementById("data_fim").value,
+      valor: document.getElementById("valor").value
+    }
+    setSistemas([...sistemas, infoSistema])
+
+    }
   return (
     <form className="App" onSubmit={handleSubmit(onSubmit)}>
       <div className="btn_gerenciador">
@@ -41,14 +57,14 @@ function App() {
             name="codigo"
             control={control}
             defaultValue=""
-            render={({ field }) => <TextField id="codigo" label="Código" {...field} />}
+            render={({ field }) => <TextField disabled id="codigo" label="Código" {...field} />}
           />
 
           <p>Pode Avaliar</p>
           <Controller
             name="avaliar"
             control={control}
-            defaultValue= {false}
+            defaultValue={false}
             render={({ field }) => <Switch id="avaliar" name="avaliar" label="Pode Avaliar" inputProps={{ 'aria-label': 'primary checkbox' }} {...field} />}
           />
 
@@ -74,7 +90,7 @@ function App() {
           <Controller
             name="pend_financeira"
             control={control}
-            defaultValue= {false}
+            defaultValue={false}
             render={({ field }) => <Switch id="pendFinanc" color="primary" name="pend_financeira" inputProps={{ 'aria-label': 'primary checkbox' }}{...field} />} />
 
           <Controller
@@ -87,7 +103,7 @@ function App() {
           <Controller
             name="contrato_atv"
             control={control}
-            defaultValue = {false}
+            defaultValue={false}
             render={({ field }) => <Switch id="contrato_atv" color="primary" name="contrato_atv" inputProps={{ 'aria-label': 'primary checkbox' }}{...field} />} />
 
         </form>
@@ -230,7 +246,7 @@ function App() {
       <br></br>
       <div className="form">
         <p>Informações do Sistema</p>
-        <form className="form_sistema" noValidate autoComplete="on" style={{ display: 'flex', gap: "10em", flexWrap: "wrap" }}>
+        <div className="form_sistema" noValidate autoComplete="on" style={{ display: 'flex', gap: "10em", flexWrap: "wrap" }}>
           <div className="switch" style={{ display: "flex", gap: "1.5em" }}>
             <p>Ativo</p>
             <Switch
@@ -242,17 +258,32 @@ function App() {
           </div>
           <FormControl id="" className="tipo" style={{ width: "200px" }}>
             <InputLabel id="sisLabel">Sistema</InputLabel>
+
             <Select
+              onChange={handleChange}
               labelId="sisLabelId"
               id="sistema"
+              defaultValue="Assistência Social"
             >
-              <MenuItem value={getSistemas.id}>{getSistemas.nome}</MenuItem>
-              <MenuItem value={getSistemas.id}>{getSistemas.nome}</MenuItem>
-              <MenuItem value={getSistemas.id}>{getSistemas.nome}</MenuItem>
+              <MenuItem value={"Assistência Social"}>Assistência Social</MenuItem>
+              <MenuItem value={"CRM"}>CRM</MenuItem>
+              <MenuItem value={"Educação"}>Educação</MenuItem>
+              <MenuItem value={"Portal Cidadão"}>Portal Cidadão</MenuItem>
+              <MenuItem value={"S-Commerce"}>S-Commerce</MenuItem>
+              <MenuItem value={"SADM"}>SADM</MenuItem>
+              <MenuItem value={"SAS"}>SAS</MenuItem>
+              <MenuItem value={"Saúde"}>Saúde</MenuItem>
+              <MenuItem value={"SCA"}>SCA</MenuItem>
+              <MenuItem value={"SCA/SAS"}>SCA/SAS</MenuItem>
+              <MenuItem value={"SE"}>SE</MenuItem>
+
             </Select>
+
+              
+
           </FormControl>
           <TextField id="valor" label="Valor" type="number" />
-          <form className="data_inicio" noValidate>
+          <div className="data_inicio" noValidate>
             <TextField
               id="data_inicio"
               label="Data de início"
@@ -262,21 +293,21 @@ function App() {
                 shrink: true,
               }}
             />
-          </form>
-          <form className="data_fim" noValidate>
+          </div>
+          <div className="data_fim" noValidate>
             <TextField
               id="data_fim"
               label="Data de Término"
               type="date"
               defaultValue="00-00-0000"
               InputLabelProps={{
-                shrink: true,
+              shrink: true,
               }}
             />
-          </form>
+          </div>
           <div style={{ height: 400, width: '100%', marginTop: '-6em', marginBottom: '-6em' }}>
             <DataGrid
-              rows={rows}
+              rows={sistemas}
               columns={columns}
               pageSize={5}
               checkboxSelection
@@ -285,10 +316,10 @@ function App() {
           </div>
           <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
             <Button id="remove_selec">Remover Selecionados</Button>
-            <Button id="add">Adicionar</Button>
+            <Button id="add" onClick={getValores}>Adicionar</Button>
           </ButtonGroup>
 
-        </form>
+        </div>
       </div>
     </form>
   );
