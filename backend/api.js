@@ -1,27 +1,30 @@
-import {getSistemas} from 'SQLcon'
-let express = require("express")
-let mysql = require("mysql")
-let cors = require("cors")
-let bodyParser = require("body-parser")
-
-var jsonParser = bodyParser.json()
-
-app.configure(() => {
-    app.use(express.bodyParser());
-});
+const DBContext = require("./DBContext")
+const express = require("express")
+const cors = require("cors")
 
 const app = express()
-app.use(cors())
+
 app.use(express.json())
+app.use(express.urlencoded({ extended: true}))
+app.use(cors())
 
 app.get("/api/sistemas", (req, res) => {
-    var resultado = getSistemas()
+
+    var resultado = DBContext.getSistemas()
+
     res.send(Object.values(resultado))
+
 })
 
-app.post('/api/cadastro', jsonParser, (req, res) => {
-    console.log(req)
+app.post('/api/cadastro', async (req, res) => {
+    
+    console.log(await req.body)
+    
+    //DBContext.setUsuario( /* Essa função vai cadastrar no banco de dados o usuario, passe como parametro a requisição do client */ );
 })
 
-app.listen(3000)
-console.log("Servidor Aberto :)")
+app.listen(3000, () => {
+
+    console.log(`Backend ta rodando -> http://localhost:3000`)
+
+})

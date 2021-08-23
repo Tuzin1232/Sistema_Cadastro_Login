@@ -12,26 +12,29 @@ function App() {
   const [valor, setValor] = useState("");
   const [sistemas, setSistemas] = useState([])
 
-  const tabelaValor = {valor}
-  
-  const onSubmit = function(data) {
+  const tabelaValor = { valor }
+
+  const onSubmit = function (data) {
     data["sistemas"] = sistemas
     fetch('http://localhost:3000/api/cadastro', {
-    method: 'POST',
-    mode: 'cors',
-    body: data
-  });
-  } 
-  
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+  }
+
   const { control, handleSubmit } = useForm();
   const handleChange = e => setValor(e.target.value);
-  
+
   console.log(sistemas)
 
   function getValores() {
     let infoSistema = {
-      id: sistemas.length +1,
-      ativo: document.getElementById("ativo").checked?"Sim":"Não",
+      id: sistemas.length + 1,
+      ativo: document.getElementById("ativo").checked ? "Sim" : "Não",
       sistema: tabelaValor.valor,
       data_inicio: document.getElementById("data_inicio").value,
       data_fim: document.getElementById("data_fim").value,
@@ -39,7 +42,7 @@ function App() {
     }
     setSistemas([...sistemas, infoSistema])
 
-    }
+  }
   return (
     <form className="App" onSubmit={handleSubmit(onSubmit)}>
       <div className="btn_gerenciador">
@@ -279,7 +282,7 @@ function App() {
 
             </Select>
 
-              
+
 
           </FormControl>
           <TextField id="valor" label="Valor" type="number" />
@@ -301,7 +304,7 @@ function App() {
               type="date"
               defaultValue="00-00-0000"
               InputLabelProps={{
-              shrink: true,
+                shrink: true,
               }}
             />
           </div>
