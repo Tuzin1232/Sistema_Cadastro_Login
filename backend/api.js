@@ -18,9 +18,7 @@ app.get("/api/sistemas", (req, res) => {
 
 app.post('/api/cadastro', async (req, res) => {
     
-    console.log(await req.body)
-    
-    //DBContext.setUsuario( /* Essa função vai cadastrar no banco de dados o usuario, passe como parametro a requisição do client */ );
+    DBContext.setUsuario(await req.body);
 })
 
 app.listen(3000, () => {

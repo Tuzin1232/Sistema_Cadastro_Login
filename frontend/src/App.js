@@ -46,7 +46,7 @@ function App() {
   return (
     <form className="App" onSubmit={handleSubmit(onSubmit)}>
       <div className="btn_gerenciador">
-        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+        <ButtonGroup variant="contained">
           <Button type="reset">Cancelar</Button>
           <Button type="submit" id="btnSalvar">Salvar</Button>
         </ButtonGroup>
@@ -68,7 +68,7 @@ function App() {
             name="avaliar"
             control={control}
             defaultValue={false}
-            render={({ field }) => <Switch id="avaliar" name="avaliar" label="Pode Avaliar" inputProps={{ 'aria-label': 'primary checkbox' }} {...field} />}
+            render={({ field }) => <Switch id="avaliar" name="avaliar" label="Pode Avaliar" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }} {...field} />}
           />
 
           <FormControl id="tipoForm" className="tipo" style={{ width: "70px" }}>
@@ -94,20 +94,20 @@ function App() {
             name="pend_financeira"
             control={control}
             defaultValue={false}
-            render={({ field }) => <Switch id="pendFinanc" color="primary" name="pend_financeira" inputProps={{ 'aria-label': 'primary checkbox' }}{...field} />} />
+            render={({ field }) => <Switch id="pendFinanc" color="primary" name="pend_financeira" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
 
           <Controller
-            name="meses_atrado"
+            name="meses_atrasado"
             control={control}
             defaultValue=""
-            render={({ field }) => <TextField id="meses_atrado" label="Meses em Atraso" type="number"{...field} />} />
+            render={({ field }) => <TextField id="meses_atrasado" label="Meses em Atraso" type="number"{...field} />} />
 
           <p>Contrato Ativo</p>
           <Controller
             name="contrato_atv"
             control={control}
             defaultValue={false}
-            render={({ field }) => <Switch id="contrato_atv" color="primary" name="contrato_atv" inputProps={{ 'aria-label': 'primary checkbox' }}{...field} />} />
+            render={({ field }) => <Switch id="contrato_atv" color="primary" name="contrato_atv" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
 
         </form>
       </div>
@@ -209,9 +209,33 @@ function App() {
               defaultValue=""
               render={({ field }) => (
                 <Select labelId="" id="UF" {...field}>
-                  <MenuItem value={1}>MG</MenuItem>
-                  <MenuItem value={2}>SP</MenuItem>
-                  <MenuItem value={3}>RJ</MenuItem>
+                  <MenuItem value={"AC"}>AC</MenuItem>
+                  <MenuItem value={"AL"}>AL</MenuItem>
+                  <MenuItem value={"AP"}>AP</MenuItem>
+                  <MenuItem value={"AM"}>AM</MenuItem>
+                  <MenuItem value={"BA"}>BA</MenuItem>
+                  <MenuItem value={"CE"}>CE</MenuItem>
+                  <MenuItem value={"ES"}>ES</MenuItem>
+                  <MenuItem value={"GO"}>GO</MenuItem>
+                  <MenuItem value={"MA"}>MA</MenuItem>
+                  <MenuItem value={"MT"}>MT</MenuItem>
+                  <MenuItem value={"MS"}>MS</MenuItem>
+                  <MenuItem value={"MG"}>MG</MenuItem>
+                  <MenuItem value={"PA"}>PA</MenuItem>
+                  <MenuItem value={"PB"}>PB</MenuItem>
+                  <MenuItem value={"PR"}>PR</MenuItem>
+                  <MenuItem value={"PE"}>PE</MenuItem>
+                  <MenuItem value={"PI"}>PI</MenuItem>
+                  <MenuItem value={"RJ"}>RJ</MenuItem>
+                  <MenuItem value={"RN"}>RN</MenuItem>
+                  <MenuItem value={"RS"}>RS</MenuItem>
+                  <MenuItem value={"RO"}>RO</MenuItem>
+                  <MenuItem value={"RR"}>RR</MenuItem>
+                  <MenuItem value={"SC"}>SC</MenuItem>
+                  <MenuItem value={"SP"}>SP</MenuItem>
+                  <MenuItem value={"SE"}>SE</MenuItem>
+                  <MenuItem value={"TO"}>TO</MenuItem>
+                  <MenuItem value={"DF"}>DF</MenuItem>
                 </Select>
               )
               }
@@ -254,9 +278,9 @@ function App() {
             <p>Ativo</p>
             <Switch
               id="ativo"
-              color="primary"
+              color="default"
               name="ativo"
-              inputProps={{ 'aria-label': 'primary checkbox' }}
+              inputProps={{ 'aria-label': 'checkbox with default color' }}
             />
           </div>
           <FormControl id="" className="tipo" style={{ width: "200px" }}>
@@ -317,7 +341,7 @@ function App() {
               disableSelectionOnClick
             />
           </div>
-          <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+          <ButtonGroup variant="contained">
             <Button id="remove_selec">Remover Selecionados</Button>
             <Button id="add" onClick={getValores}>Adicionar</Button>
           </ButtonGroup>
