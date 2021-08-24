@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 16-Ago-2021 às 13:51
+-- Tempo de geração: 24-Ago-2021 às 12:05
 -- Versão do servidor: 8.0.21
 -- versão do PHP: 7.3.21
 
@@ -54,7 +54,16 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `ativo` tinyint(1) NOT NULL,
   `codigo_cliente` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `avaliacao`, `tipo`, `pend_financeira`, `mes_atraso`, `contrato_ativo`, `nome`, `cnpj`, `cpf`, `telefone`, `celular`, `contato`, `ramo_atividade`, `cidade`, `rua`, `bairro`, `numero`, `UF`, `cep`, `complemento`, `ip_acesso`, `obv`, `ativo`, `codigo_cliente`) VALUES
+(27, 1, '', 0, 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0, '', '', '', 0, 0),
+(28, 1, '', 0, 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0, '', '', '', 0, 0),
+(26, 1, '', 0, 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0, '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -66,13 +75,21 @@ DROP TABLE IF EXISTS `clientesistemas`;
 CREATE TABLE IF NOT EXISTS `clientesistemas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `cliente_id` int NOT NULL,
-  `sistema_id` int NOT NULL,
+  `sistema` varchar(255) NOT NULL,
   `ativo` tinyint(1) NOT NULL,
   `data_inicio` date NOT NULL,
   `data_termino` date NOT NULL,
   `valor` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `clientesistemas`
+--
+
+INSERT INTO `clientesistemas` (`id`, `cliente_id`, `sistema`, `ativo`, `data_inicio`, `data_termino`, `valor`) VALUES
+(18, 27, 'SAS', 0, '2021-07-30', '2021-08-06', 112),
+(17, 27, 'Educação', 0, '2021-07-30', '2021-08-06', 112);
 
 -- --------------------------------------------------------
 
