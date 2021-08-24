@@ -94,7 +94,7 @@ function App() {
             name="pend_financeira"
             control={control}
             defaultValue={false}
-            render={({ field }) => <Switch id="pendFinanc" color="primary" name="pend_financeira" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
+            render={({ field }) => <Switch id="pendFinanc" name="pend_financeira" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
 
           <Controller
             name="meses_atrasado"
@@ -107,7 +107,7 @@ function App() {
             name="contrato_atv"
             control={control}
             defaultValue={false}
-            render={({ field }) => <Switch id="contrato_atv" color="primary" name="contrato_atv" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
+            render={({ field }) => <Switch id="contrato_atv" name="contrato_atv" color="default" inputProps={{ 'aria-label': 'checkbox with default color' }}{...field} />} />
 
         </form>
       </div>
